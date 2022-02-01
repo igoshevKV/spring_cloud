@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  configserver:
+    image: confserv:latest
+    ports:
+      - "8071:8072"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=native"
+    networks:
+      backend:
+        aliases:
+          - "configuration_server"
+networks:
+  backend:
+    driver: bridge

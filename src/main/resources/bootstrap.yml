@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: config-server
+  profiles:
+    active:
+      - native, git
+    #Профиль native работает с файловой системой или classpath, но не с Git или Vault
+  cloud:
+    config:
+      #Локальный репозиторий с файлами конфигураций из каталога (или из classpath), Но можно было и в git'е создавать конфиги
+      #Например файловый каталог - server: native: search-locations: file: ///Users/illary.huaylupo
+      #Например classpath - server: native: search-locations: classpath:/config
+      #Атрибут classpath заставляет SpringCloudConfigServer искать файлы в каталоге src/main/resources/config
+      native:
+        search-locations: classpath:/config
+      git:
+        uri: https://github.com
+server:
+  port: 8071

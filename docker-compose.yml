@@ -2,7 +2,14 @@ version: '2.1'
 
 networks:
   backend:
+    name: backendnetwork
     driver: bridge
+    enable_ipv6: false
+    ipam:
+      config:
+      - subnet: 192.168.100.0/24
+    internal: false
+
 
 services:
 
@@ -71,40 +78,40 @@ services:
         aliases:
           - "eureka-server"
 
-#  licensingservice:
-#    image: licenseserv:latest
-#    ports:
-#      - "8073:8074"
-#    environment:
-#      SPRING_PROFILES_ACTIVE: "dev"
-#    depends_on:
-#      postgres:
-#        condition: service_healthy
-#      configserver:
-#        condition: service_started
-#      eurekaserver:
-#        condition: service_started
-#    networks:
-#      backend:
-#        aliases:
-#          - "licenseserv"
+  licensingservice:
+    image: licenseserv:latest
+    ports:
+      - "8074:8074"
+    environment:
+      SPRING_PROFILES_ACTIVE: "dev"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      configserver:
+        condition: service_started
+      eurekaserver:
+        condition: service_started
+    networks:
+      backend:
+        aliases:
+          - "licenseserv"
 
-#  orgservice:
-#    image: orgserv:latest
-#    ports:
-#      - "8075:8075"
-#    environment:
-#      SPRING_PROFILES_ACTIVE: "dev"
-#    depends_on:
-#      postgres:
-#        condition: service_healthy
-#      configserver:
-#        condition: service_started
-#      eurekaserver:
-#        condition: service_started
-#      licensingservice:
-#        condition:  service_started
-#    networks:
-#      backend:
-#        aliases:
-#          - "orgserv"
+  orgservice:
+    image: orgserv:latest
+    ports:
+      - "8075:8075"
+    environment:
+      SPRING_PROFILES_ACTIVE: "dev"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      configserver:
+        condition: service_started
+      eurekaserver:
+        condition: service_started
+      licensingservice:
+        condition:  service_started
+    networks:
+      backend:
+        aliases:
+          - "orgserv"

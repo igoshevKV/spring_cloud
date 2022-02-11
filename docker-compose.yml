@@ -7,7 +7,7 @@ networks:
     enable_ipv6: false
     ipam:
       config:
-      - subnet: 192.168.100.0/24
+        - subnet: 192.168.100.0/24
     internal: false
 
 
@@ -20,12 +20,12 @@ services:
       - "8071:8071"
     environment:
       SPRING_PROFILES_ACTIVE: native
-#    depends_on:
-#    - postgres
+    #    depends_on:
+    #    - postgres
     networks:
       backend:
         aliases:
-        - "configserver"
+          - "configserver"
     #    healthcheck:
     #      test: [ "CMD", "curl --fail http://localhost:8071/actuator/health || exit 1" ]
     #      test: ["CMD", "ping", "-h", "http://localhost:8071/actuator/health"]
@@ -77,6 +77,20 @@ services:
       backend:
         aliases:
           - "eureka-server"
+
+#  gatewayserver:
+#    image: gatewayserv:latest
+#    ports:
+#      - "8070:8070"
+#    environment:
+#      - "SPRING_PROFILES_ACTIVE=default"
+#    depends_on:
+#      eurekaserver:
+#        condition: service_started
+#    networks:
+#      backend:
+#        aliases:
+#          - "gateway-server"
 
   licensingservice:
     image: licenseserv:latest

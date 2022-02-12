@@ -12,12 +12,16 @@ spring:
       #Например classpath - server: native: search-locations: classpath:/config
       #Атрибут classpath заставляет SpringCloudConfigServer искать файлы в каталоге src/main/resources/config
       native:
-        search-locations: classpath:/config
+        search-locations: classpath:file:///D:/Java/projects/Spring_cloud_ConfigServer/src/main/resources/config/
+#        search-locations: classpath:/config
 #      git:
 #        #Приоритет конфигов идет от самого нижнего(последнего) к верхнему.
 #        uri: https://github.com/igoshev_k_v/config.git
 #        #Сообщает в spring cloud config путь для поиска конфигурационных файлов.
 #        searchpath: licensingservice
+#      server:
+#        git:
+#          uri: https://github.com/igoshevKV/spring_cloud_configserver.git/
 
 server:
   port: 8071
